@@ -1,0 +1,47 @@
+<div class="layout-padding">
+
+  <ng-template #recursiveList
+               let-list>
+
+    <div dndPlaceholderRef
+              class="dndPlaceholder">
+    </div>
+
+    <div  *ngFor="let item of list"
+          class="drageble-item"
+          [dndDraggable]="item"
+          dndEffectAllowed="all"
+          [dndDisableIf]="item.disable"
+          (dndStart)="onDragStart($event)"
+          (dndCopied)="onDragged(item, list, 'copy')"
+          (dndLinked)="onDragged(item, list, 'link')"
+          (dndMoved)="onDragged(item, list, 'move')"
+          (dndCanceled)="onDragged(item, list, 'none')"
+          (dndEnd)="onDragEnd($event)">
+      {{item.content}}
+      <div *ngIf="item.customDragImage"
+           dndDragImageRef>MY_CUSTOM_DRAG_IMAGE
+      </div>
+
+      <div *ngIf="item.children"
+           class="layout-padding"
+           dndDropzone
+           (dndDrop)="onDrop($event, item.children)">
+
+        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+
+      </div>
+
+    </div>
+
+  </ng-template>
+
+  <div class="layout-padding"
+       dndDropzone
+       (dndDrop)="onDrop($event, nestableList)">
+
+    <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: nestableList }"></ng-container>
+
+  </div>
+
+</div>

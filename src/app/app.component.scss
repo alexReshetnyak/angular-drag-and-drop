@@ -1,0 +1,21 @@
+
+.drageble-item, .dndPlaceholder {
+  min-width: 300px;
+  min-height: 50px;
+  border: 1px solid lightblue;
+  background-color: aliceblue;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: transform 200ms, opacity 200ms;
+  font-size: 1.2rem;
+  color: grey;
+  font-weight: bold;
+}
+
+.dndPlaceholder {
+  border-color: red;
+  min-height: 30px;
+  background-color: beige;
+}
